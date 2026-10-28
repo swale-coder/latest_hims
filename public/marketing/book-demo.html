@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book a Demo — Aiventra Hospital Management System</title>
+<link rel="stylesheet" href="/marketing/marketing.css">
+<style>
+  .demo-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; padding: 70px 0; }
+  @media (max-width: 860px) { .demo-wrap { grid-template-columns: 1fr; } }
+  .demo-list li { padding: 14px 0 14px 30px; position: relative; border-bottom: 1px solid var(--border); font-size: 15px; }
+  .demo-list li::before { content: '\2713'; position: absolute; left: 0; top: 14px; color: var(--blue); font-weight: 700; }
+</style>
+</head>
+<body>
+<header id="site-header" class="site-header"></header>
+
+<section class="wrap demo-wrap">
+  <div class="reveal">
+    <span class="eyebrow-text">30 minutes, no obligation</span>
+    <h1 style="margin-top:12px;font-size:clamp(30px,4vw,44px)">See Aiventra running your hospital's own workflow</h1>
+    <p class="lede" style="margin-top:16px">We'll walk through OPD, IPD, billing and reporting using a setup that matches your bed count and department structure — not a generic script.</p>
+    <ul class="demo-list" style="list-style:none;padding:0;margin-top:28px">
+      <li>A live walkthrough of registration, OPD, IPD and billing</li>
+      <li>Straight answers on pricing for your hospital's size</li>
+      <li>A clear picture of what onboarding looks like week by week</li>
+    </ul>
+  </div>
+
+  <div class="form-card reveal" id="demo-form-wrap">
+    <form id="demo-form">
+      <div class="form-field"><label>Your Name *</label><input type="text" id="d-name" required></div>
+      <div class="form-field"><label>Hospital / Clinic Name</label><input type="text" id="d-hospital"></div>
+      <div class="form-field"><label>Email *</label><input type="email" id="d-email" required></div>
+      <div class="form-field"><label>Mobile Number</label><input type="tel" id="d-phone"></div>
+      <div class="form-field"><label>City</label><input type="text" id="d-city"></div>
+      <div class="form-field"><label>Anything specific you'd like us to cover?</label><textarea id="d-message"></textarea></div>
+      <button type="submit" class="btn btn-primary" style="width:100%" id="demo-submit">Request Demo</button>
+      <p class="form-note" style="margin-top:14px;color:#d64545;display:none" id="demo-error"></p>
+    </form>
+  </div>
+</section>
+
+<footer id="site-footer" class="site-footer"></footer>
+<script src="/marketing/marketing.js"></script>
+<script>
+  document.getElementById('demo-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('demo-submit');
+    const errBox = document.getElementById('demo-error');
+    errBox.style.display = 'none';
+    btn.disabled = true; btn.textContent = 'Sending...';
+    try {
+      const res = await fetch('/api/demo-requests', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: document.getElementById('d-name').value,
+          hospital_name: document.getElementById('d-hospital').value,
+          email: document.getElementById('d-email').value,
+          phone: document.getElementById('d-phone').value,
+          city: document.getElementById('d-city').value,
+          message: document.getElementById('d-message').value
+        })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Something went wrong');
+      document.getElementById('demo-form-wrap').innerHTML = `
+        <div class="form-success">
+          <h3 style="margin-bottom:10px">Request received</h3>
+          <p style="color:var(--muted)">${data.message}</p>
+        </div>`;
+    } catch (err) {
+      errBox.textContent = err.message;
+      errBox.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Request Demo';
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+{
+  "name": "hospital-management-system",
+  "version": "1.0.0",
+  "description": "20-Bed Hospital Management System MVP",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "seed": "node server/seed.js",
+    "seed:billing": "node -e \"require('./server/seedBilling').run().then(()=>require('./server/db').pool.end())\"",
+    "migrate:postgres": "node scripts/migrate-sqlite-to-postgres.js",
+    "migrate:tenancy": "node scripts/migrate-add-tenancy.js",
+    "test:tenant-isolation": "node scripts/test-tenant-isolation.js",
+    "seed:plans": "node scripts/seed-plans.js",
+    "test:subscriptions": "node scripts/test-subscription-flow.js",
+    "test:platform-admin": "node scripts/test-platform-admin.js",
+    "test:lifecycle": "node scripts/test-lifecycle-and-onboarding.js",
+    "sweep:subscriptions": "node scripts/subscription-lifecycle-sweep.js",
+    "backup": "node scripts/backup-database.js",
+    "test:security": "node scripts/test-security-hardening.js",
+    "test:accounts": "node scripts/test-password-reset-and-invitations.js",
+    "create-super-admin": "node scripts/create-super-admin.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.4.0",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "pdfkit": "^0.15.0",
+    "pg": "^8.23.0",
+    "qrcode": "^1.5.3",
+    "razorpay": "^2.9.4"
+  },
+  "devDependencies": {
+    "better-sqlite3": "^11.10.0"
+  }
+}

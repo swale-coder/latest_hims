@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pricing — Aiventra Hospital Management System</title>
+<link rel="stylesheet" href="/marketing/marketing.css">
+<style>
+  .pricing-hero { padding: 64px 0 20px; text-align: center; }
+  .cycle-toggle { display: inline-flex; background: var(--white); border: 1px solid var(--border); border-radius: 100px; padding: 5px; margin-top: 28px; }
+  .cycle-toggle button { border: none; background: transparent; padding: 10px 22px; border-radius: 100px; font-weight: 600; font-size: 14.5px; cursor: pointer; color: var(--muted); }
+  .cycle-toggle button.active { background: var(--navy); color: #fff; }
+  .plans-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; align-items: stretch; }
+  @media (max-width: 1000px) { .plans-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .plans-grid { grid-template-columns: 1fr; } }
+  .plan-card { border-radius: var(--radius-lg); padding: 32px 26px; display: flex; flex-direction: column; }
+  .plan-card.outline { background: var(--white); border: 1px solid var(--border); }
+  .plan-card.filled { background: var(--navy); color: #fff; }
+  .plan-card.filled .plan-price, .plan-card.filled h3 { color: #fff; }
+  .plan-card.filled .plan-meta { color: #A9B7D1; }
+  .plan-card .plan-badge { font-size: 12px; font-weight: 700; color: var(--purple); margin-bottom: 10px; }
+  .plan-card.filled .plan-badge { color: #C9B8FF; }
+  .plan-price { font-family: var(--display); font-size: 38px; font-weight: 600; margin: 12px 0 4px; }
+  .plan-meta { font-size: 13px; color: var(--muted); margin-bottom: 22px; }
+  .plan-card ul { list-style: none; padding: 0; margin: 0 0 24px; flex: 1; }
+  .plan-card li { padding: 8px 0; font-size: 14px; display: flex; gap: 8px; }
+  .plan-card.filled li { border-bottom-color: rgba(255,255,255,.12); }
+  .compare-table { width: 100%; border-collapse: collapse; margin-top: 60px; }
+  .compare-table th, .compare-table td { padding: 14px 16px; border-bottom: 1px solid var(--border); text-align: left; font-size: 14.5px; }
+  .compare-table th { font-family: var(--display); font-weight: 600; }
+  .compare-table td:not(:first-child), .compare-table th:not(:first-child) { text-align: center; }
+</style>
+</head>
+<body>
+<header id="site-header" class="site-header"></header>
+
+<section class="pricing-hero">
+  <div class="wrap">
+    <span class="eyebrow-text">Simple, transparent pricing</span>
+    <h1 style="margin-top:12px;font-size:clamp(32px,4.4vw,48px)">One plan for every size of hospital</h1>
+    <p class="lede" style="margin:14px auto 0">All plans include a 14-day free trial (30 days on Enterprise). GST and a one-time setup fee apply. No hidden charges.</p>
+    <div class="cycle-toggle">
+      <button class="active" data-cycle="monthly">Monthly</button>
+      <button data-cycle="annual">Annual (2 months free)</button>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:40px">
+  <div class="wrap">
+    <div id="plans-loading" class="lede" style="text-align:center;margin:0 auto">Loading current pricing...</div>
+    <div id="plans-grid" class="plans-grid" style="display:none"></div>
+
+    <table class="compare-table" id="compare-table" style="display:none">
+      <thead><tr><th>What's included</th><th>Clinic</th><th>Small Hospital</th><th>Hospital</th><th>Enterprise</th></tr></thead>
+      <tbody id="compare-body"></tbody>
+    </table>
+  </div>
+</section>
+
+<section style="background:var(--soft-purple)">
+  <div class="wrap" style="text-align:center">
+    <h2>Need a custom plan for multiple branches?</h2>
+    <p class="lede" style="margin:14px auto 24px">Talk to us about volume pricing across hospital groups and chains.</p>
+    <a href="/marketing/contact.html" class="btn btn-primary">Contact Sales</a>
+  </div>
+</section>
+
+<footer id="site-footer" class="site-footer"></footer>
+<script src="/marketing/marketing.js"></script>
+<script>
+  let cycle = 'monthly';
+  let plans = [];
+
+  function fmtINR(n) { return '\u20b9' + Number(n).toLocaleString('en-IN'); }
+  function limitLabel(v, unit) { return v === null ? 'Unlimited' : `${v}${unit ? ' ' + unit : ''}`; }
+
+  function renderPlans() {
+    const grid = document.getElementById('plans-grid');
+    grid.innerHTML = plans.map((p, i) => {
+      const filled = i === 2; // "Hospital" plan highlighted as the recommended middle-upper tier
+      const price = cycle === 'annual' ? p.annual_price : p.monthly_price;
+      return `<div class="plan-card ${filled ? 'filled' : 'outline'}">
+        ${filled ? '<div class="plan-badge">MOST CHOSEN</div>' : '<div class="plan-badge">&nbsp;</div>'}
+        <h3>${p.name}</h3>
+        <div class="plan-price">${fmtINR(price)}<span style="font-size:14px;font-weight:400">/${cycle === 'annual' ? 'year' : 'month'}</span></div>
+        <div class="plan-meta">+ ${fmtINR(p.installation_fee)} setup &middot; ${p.gst_percent}% GST &middot; ${p.trial_days}-day trial</div>
+        <ul>
+          <li>&#8226; ${limitLabel(p.bed_limit, 'beds')}</li>
+          <li>&#8226; ${limitLabel(p.opd_limit, 'OPD/month')}</li>
+          <li>&#8226; ${limitLabel(p.user_limit, 'staff users')}</li>
+          <li>&#8226; ${limitLabel(p.branch_limit, 'branch(es)')}</li>
+          <li>&#8226; ${limitLabel(p.storage_limit_gb, 'GB storage')}</li>
+        </ul>
+        <a href="/marketing/signup.html?plan=${p.code}&cycle=${cycle}" class="btn ${filled ? 'btn-light' : 'btn-primary'}">Choose ${p.name.replace('Aiventra ', '')}</a>
+      </div>`;
+    }).join('');
+    grid.style.display = 'grid';
+    document.getElementById('plans-loading').style.display = 'none';
+
+    const modules = [...new Set(plans.flatMap(p => p.enabled_modules))];
+    const moduleLabels = { opd:'OPD Management', ipd:'IPD & Bed Management', billing:'Billing & Deposits', lab:'Laboratory', pharmacy:'Pharmacy', surgery:'Surgery Records', reports:'Reports & Analytics', ai:'Ask AI Assistant', audit:'Full Audit Log', multi_branch:'Multi-Branch Support' };
+    document.getElementById('compare-body').innerHTML = modules.map(m => `
+      <tr><td>${moduleLabels[m] || m}</td>${plans.map(p => `<td>${p.enabled_modules.includes(m) ? '&#10003;' : '&mdash;'}</td>`).join('')}</tr>
+    `).join('');
+    document.getElementById('compare-table').style.display = 'table';
+  }
+
+  document.querySelectorAll('.cycle-toggle button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.cycle-toggle button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      cycle = btn.dataset.cycle;
+      renderPlans();
+    });
+  });
+
+  fetch('/api/subscriptions/plans').then(r => r.json()).then(data => { plans = data; renderPlans(); })
+    .catch(() => { document.getElementById('plans-loading').textContent = 'Could not load pricing right now — please contact us directly.'; });
+</script>
+</body>
+</html>

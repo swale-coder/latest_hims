@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Features — Aiventra Hospital Management System</title>
+<link rel="stylesheet" href="/marketing/marketing.css">
+<style>
+  .feat-hero { padding: 70px 0 30px; }
+  .feat-block { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 48px; align-items: center; padding: 60px 0; border-bottom: 1px solid var(--border); }
+  .feat-block:nth-child(even) { direction: rtl; }
+  .feat-block:nth-child(even) > * { direction: ltr; }
+  @media (max-width: 860px) { .feat-block, .feat-block:nth-child(even) { grid-template-columns: 1fr; direction: ltr; } }
+  .feat-block .mock { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 24px; min-height: 220px; }
+  .feat-block ul { list-style: none; padding: 0; margin-top: 18px; }
+  .feat-block li { padding: 9px 0 9px 24px; position: relative; font-size: 14.5px; color: var(--navy); }
+  .feat-block li::before { content: ''; position: absolute; left: 0; top: 16px; width: 6px; height: 6px; border-radius: 50%; background: var(--blue); }
+</style>
+</head>
+<body>
+<header id="site-header" class="site-header"></header>
+
+<section class="feat-hero wrap reveal">
+  <span class="eyebrow-text">Everything included</span>
+  <h1 style="margin-top:12px;font-size:clamp(32px,4.6vw,50px);max-width:16ch">Every department, one connected system</h1>
+  <p class="lede" style="margin-top:16px">No add-on modules to negotiate later — the workflow below is what every Aiventra hospital runs on from day one.</p>
+</section>
+
+<div class="wrap">
+  <div class="feat-block reveal">
+    <div>
+      <h2 style="font-size:26px">Patient Registration</h2>
+      <p class="lede" style="margin-top:10px">One patient identity across every visit — found by mobile number, never re-entered.</p>
+      <ul>
+        <li>QR self-registration for walk-ins, no reception queue required</li>
+        <li>Automatic duplicate detection by mobile number or Aadhaar</li>
+        <li>Emergency contact and document uploads attached to the record</li>
+      </ul>
+    </div>
+    <div class="mock">
+      <div style="font-size:12px;color:var(--muted);font-weight:700;margin-bottom:14px">PATIENT LOOKUP</div>
+      <div style="background:var(--soft-blue);border-radius:10px;padding:14px;margin-bottom:10px">Ahmed Khan &middot; PAT-000014 &middot; 98123 45601</div>
+      <div style="font-size:13px;color:var(--muted)">3 OPD visits &middot; 1 admission &middot; Last seen 2 days ago</div>
+    </div>
+  </div>
+
+  <div class="feat-block reveal">
+    <div>
+      <h2 style="font-size:26px">OPD & Queue Management</h2>
+      <p class="lede" style="margin-top:10px">Doctor-wise queues that update the moment a token is issued or a consultation ends.</p>
+      <ul>
+        <li>Token numbers reset daily, per doctor</li>
+        <li>Live status: waiting, in consultation, completed, cancelled</li>
+        <li>Printable receipts at registration</li>
+      </ul>
+    </div>
+    <div class="mock">
+      <div style="font-size:12px;color:var(--muted);font-weight:700;margin-bottom:14px">DR. SHARMA'S QUEUE</div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span>Token 04</span><span style="color:var(--blue)">Waiting</span></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span>Token 05</span><span style="color:#B5620C">In Consultation</span></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0"><span>Token 06</span><span style="color:var(--muted)">Waiting</span></div>
+    </div>
+  </div>
+
+  <div class="feat-block reveal">
+    <div>
+      <h2 style="font-size:26px">IPD & Bed Management</h2>
+      <p class="lede" style="margin-top:10px">Every bed's status, floor and room visible in one view — never a phone call to "check if a bed is free".</p>
+      <ul>
+        <li>Admission, bed transfer and discharge in one continuous flow</li>
+        <li>Bed status: Available, Occupied, Reserved, Cleaning, Maintenance</li>
+        <li>Discharge summaries generated from the admission's own recorded data</li>
+      </ul>
+    </div>
+    <div class="mock">
+      <div style="font-size:12px;color:var(--muted);font-weight:700;margin-bottom:14px">FLOOR 2 &middot; WARD B</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">
+        <div style="background:#FFE9E9;border-radius:8px;padding:10px;text-align:center;font-size:12px;color:#B23434">201</div>
+        <div style="background:#E7F8EF;border-radius:8px;padding:10px;text-align:center;font-size:12px;color:#1F8A5F">202</div>
+        <div style="background:#FFE9E9;border-radius:8px;padding:10px;text-align:center;font-size:12px;color:#B23434">203</div>
+        <div style="background:#E7F8EF;border-radius:8px;padding:10px;text-align:center;font-size:12px;color:#1F8A5F">204</div>
+        <div style="background:#FFF6E0;border-radius:8px;padding:10px;text-align:center;font-size:12px;color:#B5620C">205</div>
+        <div style="background:#E7F8EF;border-radius:8px;padding:10px;text-align:center;font-size:12px;color:#1F8A5F">206</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="feat-block reveal">
+    <div>
+      <h2 style="font-size:26px">Billing & Advance Deposits</h2>
+      <p class="lede" style="margin-top:10px">One ledger per admission — deposits, itemized charges, payments and refunds reconciled automatically.</p>
+      <ul>
+        <li>Interim and final bills generated as PDFs</li>
+        <li>Configurable rate card by department and category</li>
+        <li>Balance always shown as credit, due, or settled — never ambiguous</li>
+      </ul>
+    </div>
+    <div class="mock">
+      <div style="font-size:12px;color:var(--muted);font-weight:700;margin-bottom:14px">BILLING SUMMARY</div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0"><span style="color:var(--muted)">Total Charges</span><span>&#8377;68,500</span></div>
+      <div style="display:flex;justify-content:space-between;padding:6px 0"><span style="color:var(--muted)">Advance Deposit</span><span>&#8377;1,00,000</span></div>
+      <div style="display:flex;justify-content:space-between;padding:10px 0;border-top:1px solid var(--border);margin-top:6px;font-weight:700"><span>Available Balance</span><span style="color:#1F8A5F">&#8377;31,500</span></div>
+    </div>
+  </div>
+
+  <div class="feat-block reveal">
+    <div>
+      <h2 style="font-size:26px">Laboratory & Pharmacy</h2>
+      <p class="lede" style="margin-top:10px">Orders move through the same statuses your lab already uses, visible to the ordering doctor at every step.</p>
+      <ul>
+        <li>Ordered &rarr; Sample Collected &rarr; Processing &rarr; Report Generated</li>
+        <li>Prescriptions visible to pharmacy staff the moment they're written</li>
+        <li>Finalized reports attach directly to the patient's record</li>
+      </ul>
+    </div>
+    <div class="mock">
+      <div style="font-size:12px;color:var(--muted);font-weight:700;margin-bottom:14px">LAB ORDER STATUS</div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)"><span>Complete Blood Count</span><span style="color:#1F8A5F">Report Generated</span></div>
+      <div style="display:flex;justify-content:space-between;padding:8px 0"><span>X-Ray Chest</span><span style="color:#B5620C">Processing</span></div>
+    </div>
+  </div>
+
+  <div class="feat-block reveal">
+    <div>
+      <h2 style="font-size:26px">Reports, Audit & Ask AI</h2>
+      <p class="lede" style="margin-top:10px">Daily operational reports and a full audit trail — plus a natural-language assistant for quick questions.</p>
+      <ul>
+        <li>Daily OPD, admission, discharge and bed occupancy reports</li>
+        <li>Every clinical and billing action logged with who and when</li>
+        <li>Ask questions like "which beds are available on floor 2?" directly</li>
+      </ul>
+    </div>
+    <div class="mock">
+      <div style="font-size:12px;color:var(--muted);font-weight:700;margin-bottom:14px">ASK AI</div>
+      <div style="background:var(--soft-purple);border-radius:10px;padding:12px;font-size:13.5px;margin-bottom:10px">"How many beds are available on floor 2?"</div>
+      <div style="font-size:13.5px;color:var(--navy)">There are currently 3 available beds out of 9 on Floor 2.</div>
+    </div>
+  </div>
+</div>
+
+<section style="background:var(--navy)">
+  <div class="wrap" style="text-align:center">
+    <h2 style="color:#fff">See it running with your own data</h2>
+    <div style="margin-top:26px"><a href="/marketing/book-demo.html" class="btn btn-light">Book a Hospital Demo</a></div>
+  </div>
+</section>
+
+<footer id="site-footer" class="site-footer"></footer>
+<script src="/marketing/marketing.js"></script>
+</body>
+</html>

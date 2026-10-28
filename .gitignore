@@ -1,0 +1,28 @@
+node_modules/
+*.log
+.env
+data/*.db
+data/*.db-*
+data/hospital.pre-tenant-backup-*.db
+data/backups/
+uploads/organization-*/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Dependencies and logs
+node_modules/
+*.log
+npm-debug.log*
+
+# Local databases and backups
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+data/backups/
+
+# Uploaded files and private records
+uploads/

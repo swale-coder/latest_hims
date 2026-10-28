@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Accept Invitation — Aiventra</title>
+<link rel="stylesheet" href="/marketing/marketing.css">
+<style>.auth-shell { max-width: 440px; margin: 0 auto; padding: 90px 0; }</style>
+</head>
+<body>
+<header id="site-header" class="site-header"></header>
+
+<section class="wrap auth-shell">
+  <div class="reveal" style="text-align:center;margin-bottom:28px" id="heading-block">
+    <h1 style="font-size:clamp(26px,3.6vw,34px)">You've been invited</h1>
+    <p class="lede" style="margin:10px auto 0" id="invite-subtitle">Checking your invitation...</p>
+  </div>
+
+  <div class="form-card reveal" id="form-wrap">
+    <p style="text-align:center;color:var(--muted)">Loading...</p>
+  </div>
+</section>
+
+<footer id="site-footer" class="site-footer"></footer>
+<script src="/marketing/marketing.js"></script>
+<script>
+  const token = new URLSearchParams(window.location.search).get('token');
+  const formWrap = document.getElementById('form-wrap');
+  const subtitle = document.getElementById('invite-subtitle');
+
+  async function init() {
+    if (!token) {
+      subtitle.textContent = '';
+      formWrap.innerHTML = '<div class="form-success"><h3>Missing invitation link</h3><p style="color:var(--muted)">This page needs a valid invitation link from your email.</p></div>';
+      return;
+    }
+    try {
+      const res = await fetch(`/api/auth/invitations/lookup/${token}`);
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'This invitation is no longer valid.');
+
+      subtitle.textContent = `Join ${data.organizationName} as ${data.role.replace('_', ' ')}`;
+      formWrap.innerHTML = `
+        <form id="accept-form">
+          <div class="form-field"><label>Email</label><input type="email" value="${data.email}" disabled></div>
+          <div class="form-field"><label>Your Full Name *</label><input type="text" id="a-name" value="${data.name || ''}" required></div>
+          <div class="form-field"><label>Choose a Password * (min. 8 characters, with a letter and a number)</label><input type="password" id="a-password" required minlength="8"></div>
+          <button type="submit" class="btn btn-primary" style="width:100%" id="accept-submit">Accept & Create Account</button>
+          <p class="form-note" style="margin-top:14px;color:#d64545;display:none" id="accept-error"></p>
+        </form>`;
+
+      document.getElementById('accept-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const errBox = document.getElementById('accept-error');
+        errBox.style.display = 'none';
+        const btn = document.getElementById('accept-submit');
+        btn.disabled = true; btn.textContent = 'Creating your account...';
+        try {
+          const acceptRes = await fetch('/api/auth/invitations/accept', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token, name: document.getElementById('a-name').value, password: document.getElementById('a-password').value })
+          });
+          const acceptData = await acceptRes.json();
+          if (!acceptRes.ok) throw new Error(acceptData.error || 'Could not create your account');
+          localStorage.setItem('hms_token', acceptData.token);
+          localStorage.setItem('hms_user', JSON.stringify(acceptData.user));
+          window.location.href = '/#/dashboard';
+        } catch (err) {
+          errBox.textContent = err.message; errBox.style.display = 'block';
+          btn.disabled = false; btn.textContent = 'Accept & Create Account';
+        }
+      });
+    } catch (err) {
+      subtitle.textContent = '';
+      formWrap.innerHTML = `<div class="form-success"><h3>Invitation not available</h3><p style="color:var(--muted)">${err.message}</p></div>`;
+    }
+  }
+  init();
+</script>
+</body>
+</html>

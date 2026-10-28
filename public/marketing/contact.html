@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Aiventra Hospital Management System</title>
+<link rel="stylesheet" href="/marketing/marketing.css">
+<style>
+  .contact-wrap { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 56px; padding: 70px 0; }
+  @media (max-width: 860px) { .contact-wrap { grid-template-columns: 1fr; } }
+  .contact-row { display: flex; gap: 14px; align-items: flex-start; padding: 18px 0; border-bottom: 1px solid var(--border); }
+  .contact-row .ic { width: 40px; height: 40px; border-radius: 10px; background: var(--soft-blue); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+</style>
+</head>
+<body>
+<header id="site-header" class="site-header"></header>
+
+<section class="wrap contact-wrap">
+  <div class="reveal">
+    <span class="eyebrow-text">Get in touch</span>
+    <h1 style="margin-top:12px;font-size:clamp(28px,4vw,40px)">Talk to Aiventra</h1>
+    <p class="lede" style="margin-top:14px">Questions about pricing, a specific department workflow, or migrating from your current system — reach out directly or use the form.</p>
+
+    <div style="margin-top:32px">
+      <div class="contact-row"><div class="ic">&#9993;</div><div><strong>Email</strong><div style="color:var(--muted)">helloaiventra@gmail.com</div></div></div>
+      <div class="contact-row"><div class="ic">&#9742;</div><div><strong>Phone</strong><div style="color:var(--muted)">6352781789</div></div></div>
+      <div class="contact-row"><div class="ic">&#128205;</div><div><strong>Location</strong><div style="color:var(--muted)">Ahmedabad, Gujarat, India</div></div></div>
+    </div>
+  </div>
+
+  <div class="form-card reveal" id="contact-form-wrap">
+    <form id="contact-form">
+      <div class="form-field"><label>Name *</label><input type="text" id="c-name" required></div>
+      <div class="form-field"><label>Email *</label><input type="email" id="c-email" required></div>
+      <div class="form-field"><label>Mobile Number</label><input type="tel" id="c-phone"></div>
+      <div class="form-field"><label>Message *</label><textarea id="c-message" required></textarea></div>
+      <button type="submit" class="btn btn-primary" style="width:100%" id="contact-submit">Send Message</button>
+      <p class="form-note" style="margin-top:14px;color:#d64545;display:none" id="contact-error"></p>
+    </form>
+  </div>
+</section>
+
+<footer id="site-footer" class="site-footer"></footer>
+<script src="/marketing/marketing.js"></script>
+<script>
+  document.getElementById('contact-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('contact-submit');
+    const errBox = document.getElementById('contact-error');
+    errBox.style.display = 'none';
+    btn.disabled = true; btn.textContent = 'Sending...';
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: document.getElementById('c-name').value,
+          email: document.getElementById('c-email').value,
+          phone: document.getElementById('c-phone').value,
+          message: document.getElementById('c-message').value
+        })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Something went wrong');
+      document.getElementById('contact-form-wrap').innerHTML = `<div class="form-success"><h3 style="margin-bottom:10px">Message sent</h3><p style="color:var(--muted)">${data.message}</p></div>`;
+    } catch (err) {
+      errBox.textContent = err.message; errBox.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Send Message';
+    }
+  });
+</script>
+</body>
+</html>

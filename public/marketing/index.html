@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aiventra — Smarter Hospital Management. Better Patient Care.</title>
+<meta name="description" content="Aiventra HMS connects patient registration, OPD, IPD, billing, pharmacy, laboratory and hospital operations in one secure cloud platform.">
+<link rel="stylesheet" href="/marketing/marketing.css">
+<style>
+  .hero { padding: 64px 0 40px; overflow: hidden; }
+  .hero .wrap { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 40px; align-items: center; }
+  @media (max-width: 900px) { .hero .wrap { grid-template-columns: 1fr; } }
+  .hero h1 { margin: 20px 0 22px; }
+  .hero-cta { display: flex; gap: 14px; margin-top: 32px; flex-wrap: wrap; }
+
+  .panel-stage { position: relative; height: 460px; }
+  .mock-panel { position: absolute; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: 0 20px 50px rgba(11,23,48,.10); }
+  .mock-main { inset: 20px 40px 60px 0; padding: 22px; }
+  .mock-main .mm-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+  .mock-main .mm-head span { font-size: 13px; font-weight: 700; color: var(--muted); }
+  .mm-row { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--border); }
+  .mm-row .av { width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0; }
+  .mm-row .txt { flex: 1; }
+  .mm-row .txt b { display: block; font-size: 13.5px; }
+  .mm-row .txt span { font-size: 12px; color: var(--muted); }
+  .mm-tag { font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 100px; }
+  .float-1 { top: -14px; right: 0; width: 190px; padding: 16px; animation: float1 7s ease-in-out infinite; }
+  .float-2 { bottom: 10px; left: -10px; width: 175px; padding: 16px; animation: float2 8s ease-in-out infinite; }
+  @keyframes float1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+  @keyframes float2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(10px)} }
+  @media (prefers-reduced-motion: reduce) { .float-1, .float-2 { animation: none; } }
+  @media (max-width: 900px) { .panel-stage { height: 380px; } .float-1, .float-2 { display: none; } }
+
+  .trust-strip { background: var(--navy); padding: 36px 0; }
+  .trust-strip p { color: #C9D2E3; text-align: center; font-size: 15.5px; }
+
+  .workflow-track { display: flex; gap: 0; overflow-x: auto; padding-bottom: 12px; }
+  .workflow-step { flex: 0 0 200px; padding: 24px 20px; position: relative; }
+  .workflow-step .wf-num { font-family: var(--display); font-size: 30px; color: var(--soft-purple); -webkit-text-stroke: 1.5px var(--purple); color: transparent; margin-bottom: 14px; display: block; }
+  .workflow-step h4 { font-size: 15.5px; margin-bottom: 6px; }
+  .workflow-step p { font-size: 13.5px; color: var(--muted); }
+  .workflow-step:not(:last-child)::after { content: ''; position: absolute; top: 38px; right: -6px; width: 24px; height: 1px; background: var(--border); }
+
+  .role-tabs { display: flex; gap: 10px; margin-bottom: 32px; flex-wrap: wrap; }
+  .role-tab { padding: 10px 20px; border-radius: 100px; border: 1.5px solid var(--border); background: var(--white); font-weight: 600; font-size: 14px; cursor: pointer; }
+  .role-tab.active { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .role-panel { display: none; }
+  .role-panel.active { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+  @media (max-width: 800px) { .role-panel.active { grid-template-columns: 1fr; } }
+  .role-panel ul { padding: 0; margin: 20px 0 0; list-style: none; }
+  .role-panel li { padding: 10px 0 10px 26px; position: relative; color: var(--navy); font-size: 15px; }
+  .role-panel li::before { content: ''; position: absolute; left: 0; top: 17px; width: 7px; height: 7px; border-radius: 50%; background: var(--blue); }
+
+  .benefit-row { display: flex; gap: 18px; padding: 26px 0; border-bottom: 1px solid var(--border); }
+  .benefit-row:last-child { border-bottom: none; }
+  .benefit-num { font-family: var(--display); font-size: 20px; color: var(--purple); width: 40px; flex-shrink: 0; }
+
+  .final-cta { background: linear-gradient(135deg, var(--navy), #12234a); border-radius: var(--radius-lg); padding: 64px 48px; text-align: center; }
+  .final-cta h2 { color: #fff; }
+  .final-cta .lede { color: #B9C4DC; margin: 16px auto 0; }
+</style>
+</head>
+<body>
+
+<header id="site-header" class="site-header"></header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="reveal">
+      <span class="badge-pill">Intelligent Solutions. Transforming Futures.</span>
+      <h1>Smarter Hospital Management. <em>Better Patient Care.</em></h1>
+      <p class="lede">Aiventra HMS connects patient registration, OPD, IPD, billing, pharmacy, laboratory and hospital operations in one secure cloud platform — built for hospitals, clinics and nursing homes.</p>
+      <div class="hero-cta">
+        <a href="/marketing/book-demo.html" class="btn btn-primary">Book a Hospital Demo</a>
+        <a href="/marketing/signup.html" class="btn btn-outline">Start Your Free Demo</a>
+      </div>
+    </div>
+    <div class="panel-stage reveal">
+      <div class="mock-panel mock-main">
+        <div class="mm-head"><span>TODAY'S OPD QUEUE</span><span style="color:var(--blue)">12 Waiting</span></div>
+        <div class="mm-row"><div class="av" style="background:var(--soft-blue)"></div><div class="txt"><b>Ahmed Khan</b><span>Token 04 &middot; General Medicine</span></div><span class="mm-tag" style="background:var(--soft-blue);color:var(--blue)">Waiting</span></div>
+        <div class="mm-row"><div class="av" style="background:var(--soft-purple)"></div><div class="txt"><b>Lakshmi Pillai</b><span>Token 05 &middot; Orthopedics</span></div><span class="mm-tag" style="background:#FFF1E0;color:#B5620C">In Consultation</span></div>
+        <div class="mm-row"><div class="av" style="background:var(--soft-blue)"></div><div class="txt"><b>Ravi Menon</b><span>Token 06 &middot; Cardiology</span></div><span class="mm-tag" style="background:var(--soft-blue);color:var(--blue)">Waiting</span></div>
+        <div class="mm-row" style="border-bottom:none"><div class="av" style="background:var(--soft-purple)"></div><div class="txt"><b>Fathima Beevi</b><span>Token 07 &middot; General Medicine</span></div><span class="mm-tag" style="background:#E7F8EF;color:#1F8A5F">Completed</span></div>
+      </div>
+      <div class="mock-panel float-1">
+        <div style="font-size:11px;color:var(--muted);font-weight:700;margin-bottom:8px">BED OCCUPANCY</div>
+        <div style="font-family:var(--display);font-size:26px;font-weight:600">76%</div>
+        <div style="font-size:12px;color:var(--muted)">38 of 50 beds occupied</div>
+      </div>
+      <div class="mock-panel float-2">
+        <div style="font-size:11px;color:var(--muted);font-weight:700;margin-bottom:8px">TODAY'S COLLECTION</div>
+        <div style="font-family:var(--display);font-size:22px;font-weight:600">&#8377;1,84,500</div>
+        <div style="font-size:12px;color:#1F8A5F">&#9650; 12% vs. yesterday</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="trust-strip">
+  <p class="wrap">Built on real hospital workflows — patient registration to discharge, billing to pharmacy — running in production for multi-department hospitals today.</p>
+</div>
+
+<section id="features">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow-text">Everything a hospital runs on</span>
+      <h2 style="margin-top:10px">One system for every department</h2>
+    </div>
+    <div class="grid grid-3">
+      <div class="feature-card reveal"><div class="icon-tile" style="background:var(--soft-blue)">&#128203;</div><h3>Patient Registration</h3><p>QR self-registration or reception desk entry, with automatic duplicate detection by mobile number.</p></div>
+      <div class="feature-card reveal"><div class="icon-tile" style="background:var(--soft-purple)">&#128101;</div><h3>OPD & Queue Management</h3><p>Doctor-wise token queues, live wait status, and printable receipts from walk-in to consultation.</p></div>
+      <div class="feature-card reveal"><div class="icon-tile" style="background:var(--soft-blue)">&#128722;</div><h3>IPD & Bed Management</h3><p>Real-time bed occupancy across floors and rooms, admission-to-discharge tracking, deposit and interim billing.</p></div>
+      <div class="feature-card reveal"><div class="icon-tile" style="background:var(--soft-purple)">&#128176;</div><h3>Billing & Deposits</h3><p>Advance deposits, itemized charges, additional payments and refunds reconciled automatically into one ledger.</p></div>
+      <div class="feature-card reveal"><div class="icon-tile" style="background:var(--soft-blue)">&#129514;</div><h3>Laboratory</h3><p>Order tracking from sample collection through result entry to a finalized, doctor-visible report.</p></div>
+      <div class="feature-card reveal"><div class="icon-tile" style="background:var(--soft-purple)">&#128202;</div><h3>Reports & Audit</h3><p>Daily OPD/admission/discharge reports, bed occupancy, and a full audit trail of every clinical action.</p></div>
+    </div>
+    <div style="text-align:center;margin-top:36px"><a href="/marketing/features.html" class="btn btn-outline">See all features</a></div>
+  </div>
+</section>
+
+<section style="background:var(--white)">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow-text">From walk-in to discharge</span>
+      <h2 style="margin-top:10px">The OPD workflow, end to end</h2>
+    </div>
+    <div class="workflow-track reveal">
+      <div class="workflow-step"><span class="wf-num">01</span><h4>QR or Reception</h4><p>Patient registers by scanning a QR code or at the front desk.</p></div>
+      <div class="workflow-step"><span class="wf-num">02</span><h4>Doctor Selection</h4><p>Department and doctor chosen, appointment or walk-in.</p></div>
+      <div class="workflow-step"><span class="wf-num">03</span><h4>OPD Fee & Token</h4><p>Fee collected, token issued with a printable receipt.</p></div>
+      <div class="workflow-step"><span class="wf-num">04</span><h4>Doctor Queue</h4><p>Live queue ordered by token number, per doctor.</p></div>
+      <div class="workflow-step"><span class="wf-num">05</span><h4>Consultation</h4><p>Vitals, diagnosis and treatment recorded against the visit.</p></div>
+      <div class="workflow-step"><span class="wf-num">06</span><h4>Prescription</h4><p>Medicines, dose and frequency logged to the patient record.</p></div>
+      <div class="workflow-step"><span class="wf-num">07</span><h4>Lab / Referral</h4><p>Tests ordered directly if further investigation is needed.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow-text">Built around who's using it</span>
+      <h2 style="margin-top:10px">A different view for every role</h2>
+    </div>
+    <div class="role-tabs reveal">
+      <button class="role-tab active" data-role="reception">Reception</button>
+      <button class="role-tab" data-role="doctor">Doctor</button>
+      <button class="role-tab" data-role="admin">Hospital Admin</button>
+      <button class="role-tab" data-role="pharmacy">Pharmacy & Lab</button>
+    </div>
+    <div class="role-panel active reveal" data-role-panel="reception">
+      <div><h3>Move patients through the front desk faster</h3><ul>
+        <li>Search existing patients by name, mobile, or ID in one box</li>
+        <li>Register OPD visits and assign doctors in a few taps</li>
+        <li>Print token and receipt immediately at the counter</li>
+      </ul></div>
+      <div class="feature-card"><p style="color:var(--muted);font-size:14px">"Reception used to mean three separate registers. Now it's one search box and a token number."</p></div>
+    </div>
+    <div class="role-panel" data-role-panel="doctor">
+      <div><h3>Spend consultation time on patients, not paperwork</h3><ul>
+        <li>See your own queue, ordered by token, with wait times</li>
+        <li>Record diagnosis, vitals and prescriptions against the visit</li>
+        <li>Recommend admission directly into the bed allocation flow</li>
+      </ul></div>
+      <div class="feature-card"><p style="color:var(--muted);font-size:14px">Every consultation is one continuous record — no separate paper chart to reconcile later.</p></div>
+    </div>
+    <div class="role-panel" data-role-panel="admin">
+      <div><h3>Run the hospital, not just watch it</h3><ul>
+        <li>Bed occupancy, daily revenue and OPD volume on one dashboard</li>
+        <li>Manage staff roles and permissions without touching code</li>
+        <li>Full audit log of every clinical and billing action taken</li>
+      </ul></div>
+      <div class="feature-card"><p style="color:var(--muted);font-size:14px">Role-based access means a receptionist can never see billing rate configuration, and vice versa.</p></div>
+    </div>
+    <div class="role-panel" data-role-panel="pharmacy">
+      <div><h3>Track every order from request to report</h3><ul>
+        <li>Lab orders move through collection, processing, and finalized report</li>
+        <li>Pharmacy staff see prescriptions the moment doctors write them</li>
+        <li>Results reach the doctor's queue automatically once finalized</li>
+      </ul></div>
+      <div class="feature-card"><p style="color:var(--muted);font-size:14px">No more phone calls to ask "is the report ready yet?" — the status is always visible.</p></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--soft-blue)">
+  <div class="wrap grid grid-2" style="align-items:center">
+    <div class="reveal">
+      <span class="eyebrow-text">Why hospitals move to Aiventra</span>
+      <h2 style="margin-top:10px">One subscription. No IT department required.</h2>
+    </div>
+    <div class="reveal">
+      <div class="benefit-row"><span class="benefit-num">01</span><div><h4 style="font-family:var(--body);font-size:16px;margin-bottom:4px">No servers to maintain</h4><p style="color:var(--muted);font-size:14.5px">Runs entirely in the cloud — updates and backups are Aiventra's responsibility, not yours.</p></div></div>
+      <div class="benefit-row"><span class="benefit-num">02</span><div><h4 style="font-family:var(--body);font-size:16px;margin-bottom:4px">Predictable monthly cost</h4><p style="color:var(--muted);font-size:14.5px">One subscription per hospital, scaled to your bed count and OPD volume — no surprise licensing fees.</p></div></div>
+      <div class="benefit-row"><span class="benefit-num">03</span><div><h4 style="font-family:var(--body);font-size:16px;margin-bottom:4px">Live in days, not months</h4><p style="color:var(--muted);font-size:14.5px">Guided onboarding takes you from signup to your first patient registration the same week.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="security">
+  <div class="wrap">
+    <div class="section-head center reveal" style="margin-left:auto;margin-right:auto">
+      <span class="eyebrow-text">Security by design</span>
+      <h2 style="margin-top:10px">Every hospital's data, walled off from every other</h2>
+      <p class="lede" style="margin:16px auto 0">Aiventra is built multi-tenant from the ground up — not retrofitted. Every record carries its owning hospital's identity, checked on every request.</p>
+    </div>
+    <div class="grid grid-3 reveal">
+      <div class="feature-card"><h3>Isolated by design</h3><p>No hospital can reach another's patients, bills, or files — enforced on the server for every read, write and file download, not just hidden in the interface.</p></div>
+      <div class="feature-card"><h3>Role-based access</h3><p>Ten distinct staff roles, from receptionist to organization owner, each restricted to exactly what their job requires.</p></div>
+      <div class="feature-card"><h3>Full audit trail</h3><p>Every clinical and billing action is logged with who did it and when — visible to your own hospital admins at any time.</p></div>
+    </div>
+    <div style="text-align:center;margin-top:32px"><a href="/marketing/security.html" class="btn btn-outline">Read our security approach</a></div>
+  </div>
+</section>
+
+<section style="background:var(--white)">
+  <div class="wrap grid grid-4" style="text-align:center">
+    <div class="reveal"><div class="stat-num" data-counter="10" data-suffix="+">0</div><p style="color:var(--muted);margin-top:6px">Staff roles supported</p></div>
+    <div class="reveal"><div class="stat-num" data-counter="28" data-suffix="">0</div><p style="color:var(--muted);margin-top:6px">Data tables, isolated per hospital</p></div>
+    <div class="reveal"><div class="stat-num" data-counter="14" data-suffix="-day">0</div><p style="color:var(--muted);margin-top:6px">Free trial on every plan</p></div>
+    <div class="reveal"><div class="stat-num" data-counter="24" data-suffix="/7">0</div><p style="color:var(--muted);margin-top:6px">Cloud availability</p></div>
+  </div>
+</section>
+
+<section id="faq-preview">
+  <div class="wrap">
+    <div class="section-head center reveal" style="margin-left:auto;margin-right:auto">
+      <h2>Common questions</h2>
+    </div>
+    <div class="reveal" style="max-width:720px;margin:0 auto">
+      <div class="faq-item open"><div class="faq-q"><span>How long does setup take?</span><span class="chev">+</span></div><div class="faq-a">Most hospitals are live within a week — signup, hospital profile, plan selection, and staff invitations are guided steps in the app.</div></div>
+      <div class="faq-item"><div class="faq-q"><span>Can I use it across multiple branches?</span><span class="chev">+</span></div><div class="faq-a">Yes — branch limits depend on your plan, and the Enterprise plan supports unlimited branches.</div></div>
+      <div class="faq-item"><div class="faq-q"><span>What happens to our data if we cancel?</span><span class="chev">+</span></div><div class="faq-a">Your data remains accessible through the end of your current billing period, and export is always available on request.</div></div>
+    </div>
+    <div style="text-align:center;margin-top:28px"><a href="/marketing/faq.html" class="btn btn-outline">View all FAQs</a></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="final-cta reveal">
+      <h2>Ready to see Aiventra running your hospital?</h2>
+      <p class="lede">Book a guided demo with your own hospital's workflow, or start a free trial today.</p>
+      <div class="hero-cta" style="justify-content:center;margin-top:28px">
+        <a href="/marketing/book-demo.html" class="btn btn-light">Book a Hospital Demo</a>
+        <a href="/marketing/signup.html" class="btn btn-outline" style="border-color:rgba(255,255,255,.3);color:#fff">Start Your Free Demo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="site-footer" class="site-footer"></footer>
+
+<script src="/marketing/marketing.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.role-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.role-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.role-panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.querySelector(`[data-role-panel="${tab.dataset.role}"]`).classList.add('active');
+      });
+    });
+  });
+</script>
+</body>
+</html>

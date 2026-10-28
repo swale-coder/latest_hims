@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Start Your Free Demo — Aiventra Hospital Management System</title>
+<link rel="stylesheet" href="/marketing/marketing.css">
+<style>
+  .signup-shell { max-width: 480px; margin: 0 auto; padding: 70px 0; }
+</style>
+</head>
+<body>
+<header id="site-header" class="site-header"></header>
+
+<section class="wrap signup-shell">
+  <div class="reveal" style="text-align:center;margin-bottom:32px">
+    <h1 style="font-size:clamp(28px,4vw,38px)">Start your free trial</h1>
+    <p class="lede" style="margin:12px auto 0">Every plan includes a 14-day trial. No card required to get started.</p>
+  </div>
+
+  <div class="form-card reveal" id="signup-form-wrap">
+    <form id="signup-form">
+      <div class="form-field"><label>Hospital / Clinic Name *</label><input type="text" id="s-hospital" required></div>
+      <div class="form-field"><label>Organization Type</label>
+        <select id="s-type"><option value="Hospital">Hospital</option><option value="Clinic">Clinic</option><option value="Nursing Home">Nursing Home</option></select>
+      </div>
+      <div class="form-field"><label>Your Name (Owner) *</label><input type="text" id="s-owner" required></div>
+      <div class="form-field"><label>Email *</label><input type="email" id="s-email" required></div>
+      <div class="form-field"><label>Mobile Number</label><input type="tel" id="s-mobile"></div>
+      <div class="grid grid-2" style="gap:14px">
+        <div class="form-field"><label>City</label><input type="text" id="s-city"></div>
+        <div class="form-field"><label>State</label><input type="text" id="s-state"></div>
+      </div>
+      <div class="form-field"><label>Password * (min. 8 characters)</label><input type="password" id="s-password" required minlength="8"></div>
+      <button type="submit" class="btn btn-primary" style="width:100%" id="signup-submit">Create My Hospital Account</button>
+      <p class="form-note" style="margin-top:14px;color:#d64545;display:none" id="signup-error"></p>
+      <p class="form-note" style="margin-top:14px;text-align:center">Already have an account? <a href="/#/login" style="color:var(--blue);font-weight:600">Log in</a></p>
+    </form>
+  </div>
+</section>
+
+<footer id="site-footer" class="site-footer"></footer>
+<script src="/marketing/marketing.js"></script>
+<script>
+  document.getElementById('signup-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('signup-submit');
+    const errBox = document.getElementById('signup-error');
+    errBox.style.display = 'none';
+    btn.disabled = true; btn.textContent = 'Creating your account...';
+    try {
+      const res = await fetch('/api/auth/register-organization', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          hospital_name: document.getElementById('s-hospital').value,
+          org_type: document.getElementById('s-type').value,
+          owner_name: document.getElementById('s-owner').value,
+          email: document.getElementById('s-email').value,
+          mobile: document.getElementById('s-mobile').value,
+          city: document.getElementById('s-city').value,
+          state: document.getElementById('s-state').value,
+          password: document.getElementById('s-password').value
+        })
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Could not create your account');
+      // register-organization already returns a valid session token - store it exactly the
+      // way the hospital app's own login flow does, and land the new owner straight into
+      // their (empty, ready-to-configure) dashboard.
+      localStorage.setItem('hms_token', data.token);
+      localStorage.setItem('hms_user', JSON.stringify(data.user));
+      window.location.href = '/#/onboarding';
+    } catch (err) {
+      errBox.textContent = err.message;
+      errBox.style.display = 'block';
+      btn.disabled = false; btn.textContent = 'Create My Hospital Account';
+    }
+  });
+</script>
+</body>
+</html>

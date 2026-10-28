@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>OPD Registration — Aiventra HMS</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%230f6e5c%22/><text x=%2250%22 y=%2266%22 font-size=%2244%22 fill=%22white%22 text-anchor=%22middle%22 font-family=%22Arial%22 font-weight=%22bold%22>CC</text></svg>">
+<style>
+  :root { --teal-900:#0a3d33; --teal-700:#0f6e5c; --teal-600:#12876f; --teal-100:#e3f5f0; --ink:#1a2430; --ink-soft:#4b5768; --ink-faint:#7c8a9a; --line:#e4e9ee; --bg:#f6f8f9; --red:#d64545; --red-bg:#fdecec; --green:#1f8a5f; --green-bg:#e6f6ee; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; background: var(--bg); color: var(--ink); }
+  .wrap { max-width: 480px; margin: 0 auto; min-height: 100vh; background: #fff; box-shadow: 0 0 40px rgba(0,0,0,0.04); }
+  .header { background: linear-gradient(135deg, var(--teal-900), var(--teal-700)); color: #fff; padding: 28px 22px 24px; text-align: center; }
+  .header .mark { width: 52px; height: 52px; border-radius: 14px; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 22px; margin: 0 auto 12px; }
+  .header h1 { font-size: 18px; margin: 0 0 4px; }
+  .header p { font-size: 12.5px; color: #bfe0d5; margin: 0; }
+  .body { padding: 24px 22px 40px; }
+  .step-label { font-size: 13px; font-weight: 700; color: var(--teal-700); margin-bottom: 16px; }
+  .form-group { margin-bottom: 16px; }
+  .form-group label { display: block; font-size: 13px; font-weight: 650; color: var(--ink-soft); margin-bottom: 7px; }
+  input, select, textarea { width: 100%; padding: 13px 14px; border: 1.5px solid var(--line); border-radius: 10px; font-size: 15px; color: var(--ink); background: #fff; }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--teal-600); }
+  .btn { display: block; width: 100%; padding: 15px; border-radius: 10px; border: none; font-size: 15.5px; font-weight: 700; cursor: pointer; }
+  .btn-primary { background: var(--teal-600); color: #fff; }
+  .btn-primary:disabled { opacity: .6; }
+  .error-box { background: var(--red-bg); color: var(--red); padding: 12px 14px; border-radius: 10px; font-size: 13px; margin-bottom: 16px; }
+  .hint { font-size: 12px; color: var(--ink-faint); margin-top: 6px; }
+  .success-wrap { text-align: center; padding: 20px 0; }
+  .success-icon { width: 64px; height: 64px; border-radius: 50%; background: var(--green-bg); color: var(--green); display: flex; align-items: center; justify-content: center; margin: 0 auto 18px; }
+  .success-icon svg { width: 32px; height: 32px; }
+  .success-wrap h2 { font-size: 19px; margin-bottom: 6px; }
+  .success-wrap p.msg { color: var(--ink-faint); font-size: 13.5px; margin-bottom: 22px; }
+  .detail-card { background: var(--bg); border-radius: 12px; padding: 16px 18px; text-align: left; }
+  .detail-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 13.5px; }
+  .detail-row:last-child { border-bottom: none; }
+  .detail-row span:first-child { color: var(--ink-faint); }
+  .detail-row span:last-child { font-weight: 700; }
+  .found-badge { background: var(--green-bg); color: var(--green); padding: 10px 14px; border-radius: 10px; font-size: 13px; margin-bottom: 16px; display: none; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="header">
+    <div class="mark">+</div>
+    <h1>OPD Self-Registration</h1>
+    <p>Powered by Aiventra Hospital Management System</p>
+  </div>
+  <div class="body">
+    <div id="reg-form-view">
+      <div class="step-label">Patient Details</div>
+      <div id="error-box" class="error-box" style="display:none"></div>
+      <div id="found-badge" class="found-badge">Patient record found. Registering your visit...</div>
+      <form id="reg-form">
+        <div class="form-group"><label>Full Name *</label><input type="text" id="p-name" required autocomplete="name"></div>
+        <div class="form-group"><label>Mobile Number *</label><input type="tel" id="p-mobile" maxlength="10" placeholder="10-digit mobile number" required autocomplete="tel"></div>
+        <div class="form-group"><label>Gender</label>
+          <select id="p-gender"><option value="">Select</option><option>Male</option><option>Female</option><option>Other</option></select>
+        </div>
+        <div class="form-group"><label>Date of Birth</label><input type="date" id="p-dob"></div>
+        <div class="form-group"><label>Address</label><textarea id="p-address" rows="2"></textarea></div>
+        <div class="form-group"><label>Emergency Contact (optional)</label><input type="text" id="p-ec-name" placeholder="Name"></div>
+        <div class="form-group"><input type="tel" id="p-ec-phone" maxlength="10" placeholder="Phone number"></div>
+        <button type="submit" class="btn btn-primary" id="reg-submit">Register for OPD</button>
+        <p class="hint" style="text-align:center;margin-top:14px">Your information is kept secure and used only for your hospital visit.</p>
+      </form>
+    </div>
+
+    <div id="reg-success-view" style="display:none">
+      <div class="success-wrap">
+        <div class="success-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6 9 17l-5-5"/></svg></div>
+        <h2>OPD Registration Successful</h2>
+        <p class="msg" id="success-msg"></p>
+        <div class="detail-card" id="success-details"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// The hospital is identified purely by the ?org=<slug> query parameter embedded in the QR
+// code generated by that hospital's own Aiventra Admin (/api/qr/opd-registration) — never
+// guessed or defaulted, so a scanned code always registers against the right tenant.
+const ORG_SLUG = new URLSearchParams(window.location.search).get('org');
+const form = document.getElementById('reg-form');
+const errorBox = document.getElementById('error-box');
+
+if (!ORG_SLUG) {
+  document.getElementById('reg-form-view').innerHTML =
+    '<div class="error-box" style="display:block">This registration link is missing a hospital identifier. Please re-scan the QR code at the hospital reception.</div>';
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  errorBox.style.display = 'none';
+  const submitBtn = document.getElementById('reg-submit');
+  const full_name = document.getElementById('p-name').value.trim();
+  const mobile = document.getElementById('p-mobile').value.trim();
+
+  if (!full_name || !mobile) { showError('Please enter your name and mobile number.'); return; }
+  if (!/^[0-9]{10}$/.test(mobile)) { showError('Please enter a valid 10-digit mobile number.'); return; }
+
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Registering...';
+
+  const payload = {
+    full_name, mobile,
+    gender: document.getElementById('p-gender').value,
+    dob: document.getElementById('p-dob').value,
+    address: document.getElementById('p-address').value,
+    emergency_contact_name: document.getElementById('p-ec-name').value,
+    emergency_contact_phone: document.getElementById('p-ec-phone').value
+  };
+
+  try {
+    const res = await fetch(`/api/opd/public/register?org=${encodeURIComponent(ORG_SLUG || '')}`, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Registration failed. Please try again.');
+
+    document.getElementById('reg-form-view').style.display = 'none';
+    document.getElementById('reg-success-view').style.display = 'block';
+    document.getElementById('success-msg').textContent = data.message;
+    document.getElementById('success-details').innerHTML = `
+      <div class="detail-row"><span>Patient Name</span><span>${escapeHtml(data.patient.full_name)}</span></div>
+      <div class="detail-row"><span>Patient ID</span><span>${escapeHtml(data.patient.patient_id)}</span></div>
+      <div class="detail-row"><span>OPD Number</span><span>${escapeHtml(data.visit.opd_number)}</span></div>
+      <div class="detail-row"><span>Token Number</span><span>${data.visit.token_number || '-'}</span></div>
+      <div class="detail-row"><span>Date</span><span>${new Date().toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' })}</span></div>
+    `;
+  } catch (err) {
+    showError(err.message);
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Register for OPD';
+  }
+});
+
+function showError(msg) { errorBox.textContent = msg; errorBox.style.display = 'block'; window.scrollTo(0,0); }
+function escapeHtml(s) { return (s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+</script>
+</body>
+</html>
